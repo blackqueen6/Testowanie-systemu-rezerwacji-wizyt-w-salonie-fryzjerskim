@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base Layer */
+@layer base {
+    section {
+        @apply py-[75px];
+    }
+}
+
+/* Components Layer */
+@layer components {
+    .container {
+        @apply max-w-full w-[1440px] px-5 mx-auto ;
+    }
+
+    .header {
+        @apply bg-[#313131] py-4 h-[115px] flex items-center;
+        z-index: 1000;
+    }
+
+    .heading {
+        @apply text-[44px] leading-[54px] font-[700];
+    }
+
+    .main-content {
+        margin-top: 80px; 
+    }
+
+    .text_para {
+        @apply text-[18px] leading-[30px] font-[400] mt-[18px];
+    }
+
+
+    .text-gradient-gold {
+        background: linear-gradient(to bottom,#d4ac2b, #fff08c, #d4ac2b);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        padding-bottom: 0.1em;
+        padding-top: 0.1em;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* Media Queries */
+@media only screen and (max-width: 1024px) {
+    .container {
+        @apply w-full;
+    }
+
+    .section {
+        @apply py-[35px];
+    }
+
+    .navigation {
+        @apply hidden;
+    }
+
+    .navigation.show__menu {
+        @apply flex fixed top-0 left-0 w-full h-full bg-[#00000084] z-50 flex-col justify-center items-center;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .heading {
+        @apply text-[26px] leading-[36px];
+    }
+
+    .text_para {
+        @apply text-[16px] leading-7 mt-3;
+    }
+
+    table, thead, tbody, th, td, tr {
+        @apply block;
+    }
+
+    tr {
+        @apply mb-4;
+    }
+
+    td, th {
+        @apply text-center;
+    }
+}
