@@ -25,6 +25,18 @@ export const getAllHairdresser = async (req, res) => {
     }
 };
 
+// Kontroler do pobierania harmonogramu fryzjera
+export const getHairdresserTimeSlots = async (req, res) => {
+    try {
+        const hairdresser = await Hairdresser.findById(req.params.id);
+        if (!hairdresser) {
+            return res.status(404).json({ message: 'Fryzjer nie znaleziony' });
+        }
+        res.json({ timeSlots: hairdresser.timeSlots });
+    } catch (error) {
+        res.status(500).json({ message: 'Błąd serwera' });
+    }
+};
 // Pobierz profil fryzjera
 export const getHairdresserProfile = async (req, res) => {
     const { id } = req.params;

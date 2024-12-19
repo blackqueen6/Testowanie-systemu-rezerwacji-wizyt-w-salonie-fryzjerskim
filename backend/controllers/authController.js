@@ -136,7 +136,6 @@ export const resetPassword = async (req, res) => {
             console.error('Błąd podczas wysyłania emaila:', error);
             return res.status(500).json({ message: 'Błąd podczas wysyłania emaila' });
         }
-        console.log('Email wysłany:', info.response);
         res.status(200).json({ message: 'Kod weryfikacyjny został wysłany na email' });
     });
 };
@@ -169,7 +168,7 @@ export const updatePassword = async (req, res) => {
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(newPassword, salt);
-    user.resetCode = undefined; // Usunięcie kodu resetowania po zmianie hasła
+    user.resetCode = undefined;
     await user.save();
 
     res.status(200).json({ message: 'Hasło zostało zmienione' });

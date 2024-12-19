@@ -36,12 +36,21 @@ export const createReservation = async (req, res) => {
         const { appointmentDate, time, hairdresser, services } = req.body;
         const userId = req.userId;
 
-        // Konwersja daty na UTC
+        if (!time) {
+            console.log('Godzina jest wymagana');
+            return res.status(400).json({ message: 'Godzina jest wymagana' });
+        }
+
+        if (!services || services.length === 0) {
+            console.log('Usługi są wymagane');
+            return res.status(400).json({ message: 'Usługi są wymagane' });
+        }
+
         const appointmentDateUTC = new Date(appointmentDate);
         const [hours, minutes] = time.split(':').map(Number);
         appointmentDateUTC.setUTCHours(hours, minutes, 0, 0);
 
-        // Oblicz czas zakończenia wizyty
+        // Oblicza czas zakończenia wizyty
         const serviceDocs = await Promise.all(services.map(async (serviceId) => {
             const serviceDoc = await Service.findById(serviceId);
             if (!serviceDoc) {
@@ -53,7 +62,7 @@ export const createReservation = async (req, res) => {
         const totalServiceTime = serviceDocs.reduce((total, service) => total + service.time, 0);
         const endTime = new Date(appointmentDateUTC.getTime() + totalServiceTime * 60000);
 
-        // Sprawdź, czy klient ma już rezerwację w danym czasie
+        // Sprawdza, czy klient ma już rezerwację w danym czasie
         const existingUserBooking = await Booking.findOne({
             user: userId,
             $or: [
@@ -77,7 +86,7 @@ export const createReservation = async (req, res) => {
             return res.status(400).json({ success: false, message: 'Klient ma już rezerwację w tym terminie' });
         }
 
-        // Sprawdź, czy fryzjer jest dostępny w danym dniu i godzinie
+        // Sprawdza, czy fryzjer jest dostępny w danym dniu i godzinie
         const existingBooking = await Booking.findOne({
             hairdresser,
             $or: [
@@ -101,7 +110,6 @@ export const createReservation = async (req, res) => {
             return res.status(400).json({ success: false, message: 'Fryzjer jest już zajęty w tym terminie' });
         }
 
-        // Sprawdź status fryzjera
         const hairdresserDoc = await Hairdresser.findById(hairdresser);
         if (!hairdresserDoc) {
             console.log('Fryzjer nie znaleziony');
@@ -118,10 +126,6 @@ export const createReservation = async (req, res) => {
             return res.status(404).json({ message: 'Użytkownik nie znaleziony' });
         }
 
-        if (!services || services.length === 0) {
-            console.log('Usługi są wymagane');
-            return res.status(400).json({ message: 'Usługi są wymagane' });
-        }
 
         const newReservation = new Booking({
             appointmentDate: appointmentDateUTC,
@@ -180,10 +184,6 @@ const checkAndSendReminders = async () => {
             const reminderDate = new Date(appointmentDateTime.getTime() - 24 * 60 * 60 * 1000);
             const delay = reminderDate.getTime() - now.getTime();
 
-            // Logowanie do debugowania
-            console.log(`Reminder set for (expected): ${reminderDate}`);
-            console.log(`Current time: ${now}`);
-            console.log(`Delay (ms): ${delay}`);
 
             if (delay > 0) {
                 setTimeout(async () => {
