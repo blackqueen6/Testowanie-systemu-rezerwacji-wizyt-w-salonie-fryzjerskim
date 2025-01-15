@@ -5,7 +5,7 @@
 
 ## Opis projektu
 Projekt stanowi fragment pracy inżynierskiej pt. **„Projekt i implementacja aplikacji webowej do zarządzania rezerwacjami wizyt w salonie fryzjerskim”**.  
-Celem tego fragmentu jest przetestowanie funkcjonalności systemu rezerwacji wizyt w salonie fryzjerskim. Aplikacja została zaprojektowana jako kompleksowe rozwiązanie umożliwiające klientom wygodne zarządzanie rezerwacjami online, a fryzjerom efektywne organizowanie swojej pracy.
+Celem tego fragmentu jest przetestowanie funkcjonalności systemu rezerwacji wizyt w salonie fryzjerskim. Aplikacja została zaprojektowana jako kompleksowe rozwiązanie umożliwiające klientom wygodne zarządzanie rezerwacjami online, a fryzjerom efektywne organizowanie swojej pracy.Projekt został zaprojektowany jako aplikacja webowa z podziałem na frontend i backend. Część backendowa zarządza bazą danych, autoryzacją użytkowników i logiką biznesową, podczas gdy frontend obsługuje interfejs użytkownika.
 
 ### System obejmuje następujące kluczowe funkcjonalności:
 - **Logowanie i rejestracja użytkowników** – każdy klient ma możliwość stworzenia konta w systemie i logowania się w celu korzystania z pełnej funkcjonalności aplikacji.
@@ -15,7 +15,6 @@ Celem tego fragmentu jest przetestowanie funkcjonalności systemu rezerwacji wiz
 - **Usuwanie konta** – użytkownicy mogą trwale usunąć swoje konto.
 - **Wysyłanie potwierdzenia rezerwacji** - po dokonaniu rezerwacji przychodzi na e-mail użytkownika potwierdzenie rezerwacji wizyty.
 - **Wysyłanie przypomnienia o rezerwacji** - dzień przed planowaną wizytą klient otrzymuje wiadomość przypominającą. Jeśli rezerwacja została dokonana tego samego dnia, przypomnienie nie jest wysyłane.
-Projekt został zaprojektowany jako aplikacja webowa z podziałem na frontend i backend. Część backendowa zarządza bazą danych, autoryzacją użytkowników i logiką biznesową, podczas gdy frontend obsługuje interfejs użytkownika.
 
 ## Uruchomienie projektu : W terminalu wpisujemy komendę (npm run start).
 
@@ -93,6 +92,9 @@ Testy jednostkowe i integracyjne można je uruchomić za pomocą komend: npm tes
 ### Lokalizacja testów integracyjnych
 - [backend/tests/authController.test.js](backend/tests/authController.test.js)
 - [backend/tests/reservationController.test.js](backend/tests/reservationController.test.js)
+  
+## Dokumentacja API
+Dokumentacja API znajduje się pod adresem: [http://localhost:5000/api-docs/](http://localhost:5000/api-docs/) po uruchomieniu aplikacji. Wykorzystano Swaggera do jej stworzenia. 
 
 ## Testy manualne (TestCase)
 
